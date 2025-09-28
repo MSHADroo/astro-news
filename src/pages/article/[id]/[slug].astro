@@ -1,0 +1,31 @@
+---
+import BaseLayout from "@/layouts/base.astro";
+import ContentLayout from "@/layouts/content.astro";
+import ArticleHeader from "../../articles/_components/article-header.astro";
+import { articlesHandler } from "@/lib/handlers/articles";
+
+export async function getStaticPaths() {
+  const articles = await articlesHandler.allArticlesForRoutes();
+  return articles.map((article) => ({
+    params: { id: article.id, slug: article.slug },
+    props: { id: article.id , slug: article.slug },
+  }));
+}
+
+export const prerender = true;
+
+const { id , slug } = Astro.params;
+const article = await articlesHandler.getArticleById(id);
+if (!article) throw new Error("Article not found");
+
+if (slug !== article.slug) {
+  return Astro.redirect(`/article/${id}/${article.slug}`, 301);
+}
+---
+
+<BaseLayout entry={article}>
+  <ArticleHeader article={article} />
+  <ContentLayout>
+    <div set:html={article.content} />
+  </ContentLayout>
+</BaseLayout>

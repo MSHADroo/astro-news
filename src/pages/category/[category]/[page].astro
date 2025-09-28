@@ -1,0 +1,77 @@
+---
+import { SITE } from "@/lib/config";
+import { articlesHandler } from "@/lib/handlers/articles";
+import { categoriesHandler } from "@/lib/handlers/categories";
+import ListLayout from "@/layouts/list.astro";
+import Pagination from "@/components/shared/pagination.astro";
+import WideCard from "@/components/cards/wideCard.astro";
+import { getEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const categories = await categoriesHandler.allCategories();
+  const pageSize = SITE.postsPerPage;
+  const paths = [];
+  for (const cat of categories) {
+    const articles = await articlesHandler.articlesByCategory(cat.slug);
+    const lastPage = Math.max(1, Math.ceil(articles.length / pageSize));
+    for (let p = 1; p <= lastPage; p++) {
+      paths.push({ params: { category: cat.slug, page: String(p) }, props: {categoryName: cat.name} });
+    }
+  }
+  return paths;
+}
+
+export const prerender = true;
+
+const { category, page } = Astro.params;
+const { categoryName } = Astro.props;
+const currentPage = Number(page) || 1;
+const pageSize = SITE.postsPerPage;
+
+// Fetch articles for this category from GraphQL
+const allArticles = await articlesHandler.articlesByCategory(category);
+// const currentCategory = await categoriesHandler.oneCategoryBySlug(category)
+const totalArticles = allArticles.length;
+const lastPage = Math.max(1, Math.ceil(totalArticles / pageSize));
+const start = (currentPage - 1) * pageSize;
+const end = start + pageSize;
+const articles = allArticles.slice(start, end);
+
+const basePath = `category/${category}`;
+const currentUrl = `/${basePath}/${currentPage}`;
+const prevUrl = currentPage > 1 ? `/${basePath}/${currentPage - 1}` : undefined;
+const nextUrl =
+    currentPage < lastPage ? `/${basePath}/${currentPage + 1}` : undefined;
+const lastUrl = `/${basePath}/${lastPage}`;
+
+const entry = await getEntry("views", "categories");
+if (!entry) {
+  return Astro.redirect("/404");
+}
+---
+
+<ListLayout header={categoryName} entry={entry}>
+  <ul class="flex flex-col gap-2 flex-1">
+    {
+      articles.map((article) => (
+          <WideCard
+              article={article}
+              isLast={articles.lastIndexOf(article) === articles.length - 1}
+          />
+      ))
+    }
+  </ul>
+  {
+      lastPage > 1 && (
+          <Pagination
+              length={lastPage}
+              currentUrl={currentUrl}
+              currentPage={currentPage}
+              baseUrl={`/${basePath}`}
+              prevUrl={prevUrl}
+              nextUrl={nextUrl}
+              lastUrl={lastUrl}
+          />
+      )
+  }
+</ListLayout>

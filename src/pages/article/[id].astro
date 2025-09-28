@@ -1,0 +1,11 @@
+---
+import { articlesHandler } from "@/lib/handlers/articles";
+
+export const prerender = false;
+
+const { id } = Astro.params;
+const article = await articlesHandler.getArticleById(id);
+if (!article) throw new Error("Article not found");
+
+return Astro.redirect(`/article/${id}/${article.slug}`, 301);
+---

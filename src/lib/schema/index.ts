@@ -6,13 +6,14 @@ export const articleSchema = (image: ImageFunction) =>
     isDraft: z.boolean().default(false),
     isMainHeadline: z.boolean().default(false),
     isSubHeadline: z.boolean().default(false),
-    cover: image(),
-    covert_alt: z.string().optional(),
+    cover_image: image(),
+    // covert_alt: z.string().optional(),
     title: z.string().max(60, "Too long, max 60 characters"),
-    description: z.string().max(160, "Too long, max 160 characters"),
+    excerpt: z.string().max(60, "Too long, max 60 characters"),
+    content: z.string().max(160, "Too long, max 160 characters"),
     category: reference("categories"),
     authors: z.array(reference("authors")).min(1),
-    publishedTime: z.string().datetime().or(z.date()),
+      date_published: z.string().datetime().or(z.date()),
   });
 
 export const viewSchema = z.object({

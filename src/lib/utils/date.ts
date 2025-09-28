@@ -1,4 +1,5 @@
-import { formatDistanceToNow, parseISO, format } from "date-fns";
+import { formatDistanceToNow, parseISO, format } from "date-fns-jalali";
+import { faIR } from "date-fns-jalali/locale/fa-IR"
 
 const FORMAT_LONG = "EEEE, MMMM d, yyyy h:mm a zz";
 const FORMAT_SHORT = "MMMM dd, yyyy zz";
@@ -9,6 +10,7 @@ const dateCache = new Map<string, Date>();
 export const getDateDistance = (date: string) =>
   formatDistanceToNow(parseISO(date), {
     addSuffix: true,
+    locale: faIR
   });
 
 
@@ -41,5 +43,5 @@ export const formatDate = (
   const parsedDate = getParsedDate(dateString);
 
   // Format the date based on the requested format
-  return format(parsedDate, formatType === "short" ? FORMAT_SHORT : FORMAT_LONG);
+  return format(parsedDate, formatType === "short" ? FORMAT_SHORT : "EEEE d MMMM yyyy ساعت H:m", { locale: faIR });
 };

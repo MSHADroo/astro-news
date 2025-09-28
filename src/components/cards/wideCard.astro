@@ -18,7 +18,7 @@ const { article, isLast } = Astro.props;
   <div
     class="flex-shrink-0 aspect-square w-32 text-sm text-base-content/60 text-pretty capitalize hidden lg:flex pt-1"
   >
-    {getDateDistance(normalizeDate(article.data.publishedTime))}
+    {getDateDistance(normalizeDate(article.date_published))}
   </div>
   <div
     class:list={[
@@ -28,39 +28,41 @@ const { article, isLast } = Astro.props;
   >
     <div class="w-full lg:w-60 aspect-video">
       <Image
-        src={article.data.cover}
-        alt={article.data.covert_alt
-          ? article.data.covert_alt
-          : article.data.title}
+        src=`http://127.0.0.1:8055/assets/${article.cover_image.id}`
+        alt={article.cover_image.title
+          ? article.cover_image.title
+          : article.title}
         layout="constrained"
         loading={"eager"}
         class="aspect-video rounded w-full h-full"
+        width={article.cover_image.width}
+        height={article.cover_image.height}
       />
     </div>
     <div class="flex-1 space-y-2">
       <h3 class="text-xl font-semibold lg:group-hover:underline">
-        <a href={`/articles/${article.id}`}>
+        <a href={`/article/${article.id}/${article.slug}`}>
           <span class="absolute inset-0 z-10"></span>
-          {article.data.title}
+          {article.title}
         </a>
       </h3>
       <p class="text-base-content/80 max-w-xl text-pretty">
-        {article.data.description}
+        {article.excerpt}
       </p>
     </div>
     <div class="text-sm lg:hidden flex item-center text-base-content/70 pt-2">
       <time
         class="flex items-center gap-1"
-        datetime={normalizeDate(article.data.publishedTime)}
+        datetime={normalizeDate(article.date_published)}
       >
         <span>
-          {getDateDistance(normalizeDate(article.data.publishedTime))}
+          {getDateDistance(normalizeDate(article.date_published))}
         </span>
       </time>
       <Divider />
       <small class="flex items-center gap-1">
         <span class="capitalize text-sm">
-          {article.data.category.id}
+          {article.category.id}
         </span>
       </small>
     </div>

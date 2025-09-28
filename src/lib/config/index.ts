@@ -1,13 +1,13 @@
 import type { Link } from "../types";
 
 export const SITE = {
-  title: "Astro News",
-  description: "A news website built with Astro",
-  author: "Mohammad Rahmani",
-  url: "https://astro-news-six.vercel.app",
-  github: "https://github.com/Mrahmani71/astro-news",
-  locale: "en-US",
-  dir: "ltr",
+  title: "خبرگذاری بیتی",
+  description: "خلاصه اخبار فناوری برای خسته ها",
+  author: "MSHADroo",
+  url: "https://astro.local",
+  // github: "https://github.com/Mrahmani71/astro-news",
+  locale: "fa-IR",
+  dir: "rtl",
   charset: "UTF-8",
   basePath: "/",
   postsPerPage: 4,
@@ -15,85 +15,89 @@ export const SITE = {
 
 export const NAVIGATION_LINKS: Link[] = [
   {
-    href: "/categories/technology",
-    text: "Technology",
+    href: "/category/mobile/1",
+    text: "موبایل",
   },
   {
-    href: "/categories/programming",
-    text: "Programming",
+    href: "/category/computer/1",
+    text: "کامپیوتر",
   },
   {
-    href: "/categories/lifestyle",
-    text: "Lifestyle",
+    href: "/category/software/1",
+    text: "نرم‌افزار",
   },
   {
-    href: "/categories/productivity",
-    text: "Productivity",
+    href: "/category/internet/1",
+    text: "اینترنت",
   },
   {
-    href: "/categories/health",
-    text: "Health",
+    href: "/category/ai/1",
+    text: "هوش‌مصنوعی",
   },
   {
-    href: "/categories/finance",
-    text: "Finance",
+    href: "/category/gaming/1",
+    text: "بازی",
+  },
+  {
+    href: "/category/security/1",
+    text: "امنیت",
   },
 ];
 
 export const OTHER_LINKS: Link[] = [
   {
     href: "/about",
-    text: "About us",
+    text: "درباره ما",
   },
   {
     href: "/authors",
-    text: "Authors",
+    text: "نویسندگان",
   },
   {
     href: "/contact",
-    text: "Contact",
+    text: "تماس با ما",
   },
   {
     href: "/privacy",
-    text: "Privacy",
+    text: "محرمانگی",
   },
   {
     href: "/terms",
-    text: "Terms",
+    text: "قوانین",
   },
   {
     href: "/cookie-policy",
-    text: "Cookie Policy",
+    text: "سیاست کوکی",
   },
   {
-    href: "https://astro-news-six.vercel.app/rss.xml",
-    text: "RSS",
+    href: "http://localhost:4321/rss.xml",
+    text: "آر اس اس",
   },
   {
-    href: "https://astro-news-six.vercel.app/sitemap-index.xml",
-    text: "Sitemap",
+    href: "http://localhost:4321/sitemap-index.xml",
+    text: "نقشه سایت",
   },
 ];
 
 export const SOCIAL_LINKS: Link[] = [
   {
     href: "https://github.com",
-    text: "GitHub",
+    text: "گیت هاب",
     icon: "github",
   },
   {
     href: "httpe://www.t.me",
-    text: "Telegram",
+    text: "تلگرام",
     icon: "telegram",
   },
   {
     href: "https://twitter.com",
-    text: "Twitter",
+    text: "توییتر",
     icon: "newTwitter",
   },
   {
     href: "https://www.facebook.com",
-    text: "Facebook",
+    text: "فیس‌بوک",
     icon: "facebook",
   },
 ];

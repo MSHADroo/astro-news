@@ -1,0 +1,29 @@
+
+---
+// import Page from "./[page].astro";
+export const prerender = false;
+const { category } = Astro.params;
+return Astro.redirect(`/category/${category}/1`, 301);
+---
+
+
+<!--<Page page={"1"} category=`${category}` />-->
+
+<!-- -&#45;&#45;-->
+<!--import { categoriesHandler } from "@/lib/handlers/categories";-->
+
+<!--export async function getStaticPaths() {-->
+<!--  const categories = await categoriesHandler.allCategories();-->
+<!--  // console.warn(categories)-->
+<!--  return categories.map((category) => ({ params: { category: category.slug } }));-->
+<!--}-->
+
+<!--const { category } = Astro.params;-->
+
+<!--// const cat = 1;-->
+<!-- -&#45;&#45;-->
+
+<!--&lt;!&ndash; TODO: show last articles and fix pagination &ndash;&gt;-->
+<!--<meta http-equiv="refresh" content={`0; url=${`/category/${category}/1`}`} />-->
+
+

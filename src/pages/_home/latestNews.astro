@@ -3,13 +3,13 @@ import NewsCard from "@/components/cards/newsCard.astro";
 import HeaderSection from "./headerSection.astro";
 import { articlesHandler } from "@/lib/handlers/articles";
 
-const articles = articlesHandler.allArticles();
+const articles = await articlesHandler.allArticles();
 ---
 
-<section class="container pt-12 pb-0 space-y-4" data-pagefind-ignore="all">
+<section class="container pt-12 pb-10 space-y-4" data-pagefind-ignore="all">
   <HeaderSection
-    title="Latest News"
-    link_title="View all"
+    title="آخرین اخبار"
+    link_title="نمایش همه"
     link_url="/articles"
   />
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 gap-y-6 md:grid-rows-2">

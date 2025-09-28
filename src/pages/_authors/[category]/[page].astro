@@ -10,12 +10,12 @@ import WideCard from "@/components/cards/wideCard.astro";
 import { getEntry } from "astro:content";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const allCategories = categoriesHandler.allCategories();
-  const allArticles = articlesHandler.allArticles();
+  const allCategories = await categoriesHandler.allCategories();
+  const allArticles = await articlesHandler.allArticles();
 
   return allCategories.flatMap((category) => {
     const filteredArticles = allArticles.filter(
-      (article) => article.data.category.id === category.id
+      (article) => article.category.id === category.id,
     );
     return paginate(filteredArticles, {
       params: { category: category.id },

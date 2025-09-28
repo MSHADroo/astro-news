@@ -7,10 +7,10 @@ import {
   viewSchema,
 } from "@/lib/schema";
 
-const articleCollection = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/content/articles" }),
-  schema: ({ image }) => articleSchema(image),
-});
+// const articleCollection = defineCollection({
+//   loader: glob({ pattern: "**/*.mdx", base: "./src/content/articles" }),
+//   schema: ({ image }) => articleSchema(image),
+// });
 
 const viewCollection = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "./src/content/views" }),
@@ -28,7 +28,7 @@ const authorCollection = defineCollection({
 });
 
 export const collections = {
-  articles: articleCollection,
+  // articles: articleCollection,
   views: viewCollection,
   categories: categoryCollection,
   authors: authorCollection,

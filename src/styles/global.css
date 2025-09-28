@@ -10,9 +10,9 @@
 
 @theme {
   /* Font Family */
-  --font-sans: "Source Sans Pro", ui-sans-serif, system-ui, sans-serif,
+  --font-sans: 'Vazirmatn', ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-serif: "Source Serif 4 Variable", ui-serif, Georgia, Cambria,
+  --font-serif: 'Vazirmatn', ui-serif, Georgia, Cambria,
     "Times New Roman", Times, serif;
 
   --breakpoint-2xl: initial;

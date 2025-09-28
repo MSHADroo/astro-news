@@ -7,14 +7,19 @@ import { getEntry } from "astro:content";
 import WideCard from "@/components/cards/wideCard.astro";
 
 import { articlesHandler } from "@/lib/handlers/articles";
-
+// TODO in getstaticpath just retrive count of articles , not all articles
 export const getStaticPaths = (async ({ paginate }) => {
-  const articles = articlesHandler.allArticles();
+  const articles = await articlesHandler.allArticles();
   return paginate(articles, { pageSize: SITE.postsPerPage });
 }) satisfies GetStaticPaths;
 
+
 const { page } = Astro.props;
-const articles = page.data;
+const articles = await articlesHandler.allArticles(SITE.postsPerPage , (page.currentPage - 1) * SITE.postsPerPage);
+if(!articles){
+  return Astro.redirect("/404");
+}
+
 const pathname = new URL(Astro.request.url).pathname.split("/");
 const basePath = pathname[1];
 

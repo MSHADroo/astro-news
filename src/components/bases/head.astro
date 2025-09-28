@@ -1,9 +1,9 @@
 ---
 import "@/styles/global.css";
-import "@fontsource/source-sans-pro/400.css";
-import "@fontsource/source-sans-pro/600.css";
-import "@fontsource/source-sans-pro/700.css";
-import "@fontsource-variable/source-serif-4";
+// import "@fontsource/source-sans-pro/400.css";
+// import "@fontsource/source-sans-pro/600.css";
+// import "@fontsource/source-sans-pro/700.css";
+// import "@fontsource-variable/source-serif-4";
 import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/lib/config";
 import type { ArticleMeta, Meta } from "@/lib/types";
@@ -33,7 +33,7 @@ const OGImage = new URL(meta.ogImage, Astro.url).href;
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content="Astro News" />
+  <meta name="apple-mobile-web-app-title" content="Bit News" />
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- RSS & Sitemap -->
@@ -94,6 +94,11 @@ const OGImage = new URL(meta.ogImage, Astro.url).href;
       </>
     ) : null
   }
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
 
   <ClientRouter />
 </head>

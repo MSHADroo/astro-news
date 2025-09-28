@@ -9,49 +9,56 @@ import Divider from "@/components/bases/divider.astro";
 import { categoriesHandler } from "@/lib/handlers/categories";
 import { authorsHandler } from "@/lib/handlers/authors";
 import Share from "@/components/elements/share.astro";
+import { convertNumbersToPersian } from "@/lib/utils/persian-numbers"
+import { readingTimeFa } from "@/lib/utils/readingTime.js"
 
 type Props = {
   article: CollectionEntry<"articles">;
-  readingTime: string;
+  // readingTime: string;
 };
 
-const { article, readingTime } = Astro.props;
+const { article } = Astro.props;
 
-const category = categoriesHandler.oneCategory(article.data.category.id);
-const authors = authorsHandler.getAuthors(article.data.authors);
+// const category = categoriesHandler.oneCategory(article.data.category.id);
+// const authors = authorsHandler.getAuthors(article.data.authors);
 ---
 
 <section
   class="mb-8 flex flex-col lg:flex-col-reverse border-b border-b-base-300 lg:border-none pb-4 pt-0 lg:pt-6"
 >
   <div
-    class="container px-0 max-w-5xl lg:mt-4 overflow-hidden aspect-[20/9] lg:rounded-md"
+    class="container px-0 max-w-5xl lg:mt-4 overflow-hidden aspect-[16/9] lg:rounded-md"
   >
     <Picture
-      src={article.data.cover}
+      src=`http://127.0.0.1:8055/assets/${article.cover_image.id}`
+      srcset=`http://127.0.0.1:8055/assets/${article.cover_image.id}?width=640 640w, http://127.0.0.1:8055/assets/${article.cover_image.id}?width=1024 1024w`
+
       alt="article"
       layout="full-width"
       loading={"eager"}
       formats={["avif", "webp"]}
       class="w-full h-full object-center"
+      width={article.cover_image.width}
+      height={article.cover_image.height}
     />
   </div>
   <div class="container my-4 max-w-5xl lg:hidden flex items-center gap-2">
     <ResourcesAdd size="16" />
-    <a href={`/categories/${category.data.path}`} class="a-01 font-semibold"
-      >{category.data.title}</a
+    <a href={`/category/${article.category.slug}`} class="a-01 font-semibold"
+      >{article.category.name}</a
     >
   </div>
   <div class="container max-w-5xl">
-    <h1 class="text-3xl lg:text-4xl font-bold text-left text-pretty">
-      {article.data.title}
+    <h1 class="text-3xl lg:text-4xl font-bold text-rigth text-pretty">
+      {article.title}
     </h1>
     <div class="flex flex-col gap-4 items-start mt-2 lg:mt-6 text-sm">
       <div class="text-base-content/70 flex items-center gap-2">
         <span class="hidden lg:flex items-center gap-1">
           <ResourcesAdd size="15" />
-          <a href={`/categories/${category.id}`} class="a-01 font-semibold"
-            >{category.data.title}</a
+          <a
+            href={`/category/${article.category.slug}`}
+            class="a-01 font-semibold">{article.category.name}</a
           >
         </span>
         <Divider responsive />
@@ -59,28 +66,24 @@ const authors = authorsHandler.getAuthors(article.data.authors);
           <Calendar04 size="15" />
           <time
             class="hidden lg:block"
-            datetime={normalizeDate(article.data.publishedTime)}
-            >{
-              formatDate(normalizeDate(article.data.publishedTime), "long")
-            }</time
+            datetime={normalizeDate(article.date_published)}
+            >{convertNumbersToPersian(formatDate(normalizeDate(article.date_published), "PPPP"))}</time
           >
           <time
             class="block lg:hidden"
-            datetime={normalizeDate(article.data.publishedTime)}
-            >{
-              formatDate(normalizeDate(article.data.publishedTime), "short")
-            }</time
+            datetime={normalizeDate(article.date_published)}
+            >{convertNumbersToPersian(formatDate(normalizeDate(article.date_published), "PP"))}</time
           >
         </span>
         <Divider />
         <span class="flex items-center gap-1">
           <Time04 size="15" />
-          <span>{readingTime}</span>
+          <span>{convertNumbersToPersian(readingTimeFa(article.content).text)}</span>
         </span>
       </div>
       <!-- TODO: fix name, href, avatar of author -->
       <div class="w-full flex flex-wrap gap-2 items-center justify-between">
-        <div class="flex flex-wrap gap-4">
+        <!-- <div class="flex flex-wrap gap-4">
           {
             authors.map((author) => (
               <div class="flex items-center gap-2">
@@ -107,8 +110,8 @@ const authors = authorsHandler.getAuthors(article.data.authors);
               </div>
             ))
           }
-        </div>
-        <Share text={article.data.title} />
+        </div> -->
+        <Share text={article.title} />
       </div>
     </div>
   </div>

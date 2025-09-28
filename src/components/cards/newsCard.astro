@@ -4,6 +4,8 @@ import Divider from "../bases/divider.astro";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { categoriesHandler } from "@/lib/handlers/categories";
+import { convertNumbersToPersian } from "@/lib/utils/persian-numbers";
+import { readingTimeFa } from "@/lib/utils/readingTime.js"
 
 type Props = {
   article: CollectionEntry<"articles">;
@@ -12,8 +14,8 @@ type Props = {
 
 const { article, index } = Astro.props;
 
-const { remarkPluginFrontmatter } = await render(article);
-const category = categoriesHandler.oneCategory(article.data.category.id);
+// const { remarkPluginFrontmatter } = await render(article);
+// const category = categoriesHandler.oneCategory(article.data.category.id);
 ---
 
 <article
@@ -21,35 +23,37 @@ const category = categoriesHandler.oneCategory(article.data.category.id);
 >
   <div class="aspect-video overflow-hidden rounded-md">
     <Image
-      src={article.data.cover}
-      alt={article.data.covert_alt
-        ? article.data.covert_alt
-        : article.data.title}
+      src=`http://127.0.0.1:8055/assets/${article.cover_image.id}`
+      alt={article.cover_image.title
+        ? article.cover_image.title
+        : article.title}
       loading={index < 3 ? "eager" : "lazy"}
       layout="constrained"
       class="w-full h-full object-cover"
+      width={article.cover_image.width}
+      height={article.cover_image.height}
     />
   </div>
   <div class="flex flex-col flex-1">
     <h3
       class="text-xl font-serif font-semibold lg:group-hover:underline line-clamp-2"
     >
-      <a href={`/articles/${article.id}`}>
+      <a href={`/article/${article.id}/${article.slug}`}>
         <span class="absolute inset-0 z-10 pointer-events-none"></span>
-        {article.data.title}
+        {article.title}
       </a>
     </h3>
     <p class="text-sm text-base-content/80 line-clamp-3 text-pretty lg:mb-auto">
-      {article.data.description}
+      {article.excerpt}
     </p>
     <div class="flex items-center text-xs text-base-content/80 mt-2">
       <span class="text-xs text-primary dark:text-secondary"
-        >{category.data.title}</span
+        >{article.category.name}</span
       >
       <Divider />
-      <span class="text-xs text-base-content/80"
-        >{remarkPluginFrontmatter.minutesRead}</span
-      >
+      <span class="text-xs text-base-content/80">
+        {convertNumbersToPersian(readingTimeFa(article.content).text)}
+      </span>
     </div>
   </div>
 </article>
