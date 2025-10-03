@@ -38,7 +38,7 @@ const ARTICLE_BY_ID_QUERY = gql`
     seo_title
       seo_description
       date_published
-      gallery
+      gallery {}
   }
 }
 `;
@@ -80,7 +80,7 @@ const ARTICLES_QUERY = gql`
       seo_title
       seo_description
       date_published
-      gallery
+      gallery {}
     }
   }
 `;
