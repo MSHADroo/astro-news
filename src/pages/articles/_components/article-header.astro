@@ -30,8 +30,8 @@ const { article } = Astro.props;
     class="container px-0 max-w-5xl lg:mt-4 overflow-hidden aspect-[16/9] lg:rounded-md"
   >
     <Picture
-      src=`http://127.0.0.1:8055/assets/${article.cover_image.id}`
-      srcset=`http://127.0.0.1:8055/assets/${article.cover_image.id}?width=640 640w, http://127.0.0.1:8055/assets/${article.cover_image.id}?width=1024 1024w`
+      src=`${process.env.DIRECTUS_BASE_PATH}${article.cover_image.id}`
+      srcset=`${process.env.DIRECTUS_BASE_PATH}${article.cover_image.id}?width=640 640w, ${process.env.DIRECTUS_BASE_PATH}${article.cover_image.id}?width=1024 1024w`
 
       alt="article"
       layout="full-width"

@@ -1,11 +1,19 @@
 ---
 import { articlesHandler } from "@/lib/handlers/articles";
 
-export const prerender = false;
+export async function getStaticPaths() {
+    const articles = await articlesHandler.allArticlesForRoutes();
+    return articles.map((article) => ({
+        params: { id: article.id, slug: article.slug },
+        props: { id: article.id , slug: article.slug },
+    }));
+}
+// export const prerender = false;
 
-const { id } = Astro.params;
-const article = await articlesHandler.getArticleById(id);
-if (!article) throw new Error("Article not found");
+const {id, slug} = Astro.params;
+// const article = await articlesHandler.getArticleById(id);
+// if (!article) throw new Error("Article not found");
 
-return Astro.redirect(`/article/${id}/${article.slug}`, 301);
+// return Astro.redirect(`/article/${id}/${article.slug}`, 301);
+return Astro.redirect(`/article/${id}/${slug}`, 301);
 ---

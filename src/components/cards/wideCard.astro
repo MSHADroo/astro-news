@@ -28,7 +28,7 @@ const { article, isLast } = Astro.props;
   >
     <div class="w-full lg:w-60 aspect-video">
       <Image
-        src=`http://127.0.0.1:8055/assets/${article.cover_image.id}`
+        src=`${process.env.DIRECTUS_BASE_PATH}${article.cover_image.id}`
         alt={article.cover_image.title
           ? article.cover_image.title
           : article.title}

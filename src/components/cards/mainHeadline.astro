@@ -19,7 +19,7 @@ const { article } = Astro.props;
 <article class="group relative isolate flex flex-col-reverse md:flex-col gap-4">
   <div class="aspect-video overflow-hidden rounded-md">
     <Image
-      src=`http://127.0.0.1:8055/assets/${article.cover_image.id}`
+      src=`${process.env.DIRECTUS_BASE_PATH}${article.cover_image.id}`
       alt={article.cover_image.title
         ? article.cover_image.title
         : article.title}
